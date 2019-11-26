@@ -78,16 +78,24 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
+        marginLeft:4
     },
     submit: {
-        padding: 10
+        padding: 10,
+        backgroundColor:"#007ff2",
+        marginHorizontal:8,
+        borderRadius:15,
     },
     input: {
         flex: 1,
         padding: 10,
-        backgroundColor: "#fff",
-        color: "#424242"
+        backgroundColor: "#ebebeb",
+        color: "#424242",
+        borderRadius: 2,
+        borderWidth: 1,
+        borderColor: "#a0a0a0"
+
     },
     likeNr: {
         fontWeight: "normal",

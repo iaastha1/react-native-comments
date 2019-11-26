@@ -12,7 +12,8 @@ import {
   ActivityIndicator,
   Keyboard,
   TextInput,
-  TouchableHighlight
+  TouchableHighlight,
+  KeyboardAvoidingView
 } from "react-native";
 import moment from "moment";
 import PropTypes from "prop-types";
@@ -415,33 +416,8 @@ export default class Comments extends PureComponent {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <View style={styles.inputSection}>
-          <TextInput
-            style={styles.input}
-            ref={input => (this.textInputs["inputMain"] = input)}
-            multiline={true}
-            onChangeText={text => this.setState({ newCommentText: text })}
-            placeholder={"Write comment"}
-            numberOfLines={3}
-          />
-          <TouchableHighlight
-            onPress={() => {
-              this.props.saveAction(this.state.newCommentText, false);
-              this.setState({ newCommentText: null });
-              this.textInputs["inputMain"].clear();
-              Keyboard.dismiss();
-            }}
-          >
-            {this.renderIcon({
-              style: styles.submit,
-              name: "caret-right",
-              size: 40,
-              color: "gray"
-            })}
-          </TouchableHighlight>
-        </View>
         {!this.state.loadingComments && !this.props.data ? (
-          <Text style={{ textAlign: "center" }}>No comments yet</Text>
+          <Text style={{ textAlign: "center" }}>Be the first to comment.</Text>
         ) : null}
 
         {!this.state.loadingComments &&
@@ -524,11 +500,33 @@ export default class Comments extends PureComponent {
             </Text>
           </TouchableHighlight>
         ) : (
-          <Text style={{ textAlign: "center", color: "gray" }}>
-            No comments yet
-          </Text>
+          null
         )}
-
+        <KeyboardAvoidingView style={styles.inputSection} behavior="padding">
+          <TextInput
+            style={styles.input}
+            ref={input => (this.textInputs["inputMain"] = input)}
+            multiline={true}
+            onChangeText={text => this.setState({ newCommentText: text })}
+            placeholder={"Write comment"}
+            numberOfLines={3}
+          />
+          <TouchableHighlight
+            onPress={() => {
+              this.props.saveAction(this.state.newCommentText, false);
+              this.setState({ newCommentText: null });
+              this.textInputs["inputMain"].clear();
+              Keyboard.dismiss();
+            }}
+          >
+            {this.renderIcon({
+              style: styles.submit,
+              name: "chevron-right",
+              size: 24,
+              color: "white"
+            })}
+          </TouchableHighlight>
+        </KeyboardAvoidingView>
         <Modal
           animationType={"slide"}
           transparent={false}
